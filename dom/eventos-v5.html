@@ -1,0 +1,36 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+    <p>{{contador}}</p>
+    <button v-on:click="somar(2, $event)">Somar </button>
+    <button v-on:click="subtrair">Subtrair </button>
+    <hr>
+    <p style="background-color: bisque;" v-on:mousemove="atualizaXY">Mause: {{x}} e {{y}}
+        <span style="background-color: rgb(179, 240, 160);" v-on:mousemove.stop="">Parar Aqui!!!</span>
+    </p>
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            somar(passo, ev) {
+                console.log(ev)
+                this.contador += passo
+            },
+            subtrair() {
+                this.contador--
+            },
+            atualizaXY(e) {
+                this.x = e.clientX
+                this.y = e.clientY
+            }
+        },
+    })
+</script>
