@@ -3,8 +3,10 @@
 <div id="app">
     <h1>Listas com V-For - Template</h1>
     <template v-for="(cor, i) in cores">
-        <h1>{{cor}}</h1>
-        <p>{{i}}</p>
+        <div>
+            <h1>{{cor}}</h1>
+            <p>{{i}}</p>
+        </div>
     </template>
     <hr>
     <h1>Lista com V-for - Li</h1>
@@ -12,30 +14,51 @@
         <li v-for="(cor, index) in cores" :key="index">{{index +1}} ) {{cor}}</li>
     </ul>
     <hr>
-    <ul>
-        <li v-for="(pessoa, i) in pessoas" :key="i">
-            {{pessoa.nome }} - {{pessoa.idade}} - {{pessoa.altura}} - {{pessoa.peso}}
-        </li>
-    </ul>
+    <h1>Lista com V-For - Table</h1>
+    <table>
+        <tr @click="mudaCor">
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Altura</th>
+            <th>Peso</th>
+        </tr>
+        <tr :class="colorTd" v-for="(pessoa, i) in pessoas" :key="i">
+            <td>{{pessoa.nome}} </td>
+            <td>{{pessoa.idade}}</td>
+            <td>{{pessoa.altura}}</td>
+            <td>{{pessoa.peso}}</td>
+        </tr>
+    </table>
 </div>
 
 <script>
     new Vue({
-        el:'#app',
-        data:{
-            cores:['verde', 'amarelo', 'azul', 'cinza', 'vermelho'],
-            pessoas:[
-                {nome:'Irley', idade: '43', altura:1.73, peso:83},
-                {nome:'Isadora', idade: 13, altura:1.61, peso:50},
-                {nome:'Emily', idade: 13, altura:1.57, peso:47},
-                {nome:'Viviane', idade: 39, altura:1.63, peso:60},
+        el: '#app',
+        data: {
+            cor: 'gray',
+            colorTd: 'destaque',
+            cores: ['verde', 'amarelo', 'azul', 'cinza', 'vermelho'],
+            pessoas: [
+                { nome: 'Irley', idade: '43', altura: 1.73, peso: 83 },
+                { nome: 'Isadora', idade: 13, altura: 1.61, peso: 50 },
+                { nome: 'Emily', idade: 13, altura: 1.57, peso: 47 },
+                { nome: 'Viviane', idade: 39, altura: 1.63, peso: 60 },
             ]
+        },
+        methods: {
+            mudaCor() {
+                this.colorTd = this.cor == 'gray' ? '' : 'destaque'
+            }
         },
     })
 </script>
 
 <style>
-    ul{
+    ul {
         list-style: none;
+    }
+
+    .destaque {
+        background-color: gray;
     }
 </style>
