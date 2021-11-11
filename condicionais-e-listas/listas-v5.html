@@ -15,14 +15,14 @@
     </ul>
     <hr>
     <h1>Lista com V-For - Table</h1>
-    <table>
-        <tr @click="mudaCor">
+    <table class="full_table_list">
+        <tr>
             <th>Nome</th>
             <th>Idade</th>
             <th>Altura</th>
             <th>Peso</th>
         </tr>
-        <tr :class="colorTd" v-for="(pessoa, i) in pessoas" :key="i">
+        <tr v-for="(pessoa, i) in pessoas" :key="i">
             <td>{{pessoa.nome}} </td>
             <td>{{pessoa.idade}}</td>
             <td>{{pessoa.altura}}</td>
@@ -34,9 +34,8 @@
 <script>
     new Vue({
         el: '#app',
+
         data: {
-            cor: 'gray',
-            colorTd: 'destaque',
             cores: ['verde', 'amarelo', 'azul', 'cinza', 'vermelho'],
             pessoas: [
                 { nome: 'Irley', idade: '43', altura: 1.73, peso: 83 },
@@ -45,11 +44,7 @@
                 { nome: 'Viviane', idade: 39, altura: 1.63, peso: 60 },
             ]
         },
-        methods: {
-            mudaCor() {
-                this.colorTd = this.cor == 'gray' ? '' : 'destaque'
-            }
-        },
+
     })
 </script>
 
@@ -58,7 +53,26 @@
         list-style: none;
     }
 
-    .destaque {
-        background-color: gray;
+    .full_table_list {
+        border-collapse: collapse;
+    }
+
+
+    .full_table_list tr td {
+        border: 1px black solid;
+    }
+
+    .full_table_list tr th {
+        border: 1px black solid;
+    }
+
+    /*Definido cor das linhas pares*/
+    .full_table_list tr:nth-child(even) {
+        background: #FFF
+    }
+
+    /*Definindo cor das Linhas impáres*/
+    .full_table_list tr:nth-child(odd) {
+        background: rgb(194, 190, 190)
     }
 </style>
