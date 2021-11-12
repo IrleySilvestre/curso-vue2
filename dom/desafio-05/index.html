@@ -7,20 +7,20 @@
     para ver a diferença -->
   <h2>#01</h2>
   <div>
-    <button>Alternar</button>
-    <p>Você quer me ver ...</p>
-    <p>...ou eu</p>
-    <p>Você quer me ver ...</p>
-    <p>...ou eu</p>
+    <button @click="exibDiv = !exibDiv">Alternar</button>
+    <p v-if="exibDiv">Você quer me ver ...</p>
+    <p v-else>...ou eu</p>
+    <p v-show="exibDiv">Você quer me ver ...</p>
+    <p v-show="!exibDiv">...ou eu</p>
   </div>
 
   <!-- 2) Exiba em uma <ul> um array de elementos da sua escolha.
     Imprima também o índice de cada elemento. -->
   <h2>#02</h2>
   <ul>
-    <li></li>
+    <li v-for="(fruta, index) in frutas" :key="index">{{index}}) - {{fruta}}</li>
   </ul>
-  
+
   <!-- 3) Imprimir todos os pares de valor-chave do objeto a seguir:
     {
 			titulo: 'O Senhor dos Anéis',
@@ -30,9 +30,11 @@
     Imprima também o índice de cada item. -->
   <h2>#03</h2>
   <ul>
-    <li></li>
+    <li v-for="(valor, chave, index) in livro" :key="index">
+      {{index + 1}} - {{chave}}: {{valor}}
+    </li>
   </ul>
-  
+
   <!-- 4) Imprima o seguinte objeto (somente os valores) e
     também crie um loop aninhado para o array:
     {
@@ -43,9 +45,22 @@
     (dica: use v-for e v-if na resolução) -->
   <h2>#04</h2>
   <ul>
-    <li>
-    
+    <li v-for="(valor, index) in aluno" :key="index">
+      <template v-if="!Array.isArray(valor)">
+        {{valor}} <br>
+      </template>
+      <template v-else>
+        Notas: <span v-for="(nota, i) in aluno.notas" :key="i"> {{aluno.notas[i]}} </span>
+      </template>
+
     </li>
   </ul>
 </div>
-<script src="app.js"></script>
+<script src=" app.js">
+</script>
+
+<style>
+  ul {
+    list-style: none;
+  }
+</style>
