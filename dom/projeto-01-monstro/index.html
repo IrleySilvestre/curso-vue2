@@ -14,39 +14,34 @@
             <div class="score">
                 <h1>Jogador</h1>
                 <div class="life-bar">
-                    <div 
-                    class="life"
-                    :class="{danger: scorePlayer < 21}"
-                    ></div>
+                    <div class="life" :class="{danger: scorePlayer < 21}" :style="{width: scorePlayer + '%'}"></div>
                 </div>
                 <div>{{scorePlayer}}%</div>
             </div>
             <div class="score">
                 <h1>Monstro</h1>
                 <div class="life-bar">
-                    <div 
-                    class="life"
-                    :class="{danger: scoreMonster < 21}"></div>
+                    <div class="life" :class="{danger: scoreMonster < 21}" :style="{width: scoreMonster + '%'}"></div>
                 </div>
                 <div>{{scoreMonster}}%</div>
             </div>
         </div>
-        <div class="panel result">
-            <div v-if="youWin" class="win">Você ganhou!!! :)</div>
+        <div v-if="hasResult" class="panel result">
+            <div v-if="scoreMonster == 0" class="win">Você ganhou!!! :)</div>
             <div v-else class="lose">Você perdeu! :(</div>
         </div>
         <div class="panel buttons">
             <template>
-                <button v-if="isPlaying" class="btn attack">Ataque</button>
-                <button v-if="isPlaying" class="btn especial-attack">Ataque Especial</button>
-                <button v-if="isPlaying" class="btn heal">Curar</button>
-                <button v-if="isPlaying" class="btn give-up" @click="isPlaying = !isPlaying">Desistir</button>
+                <button @click="attack(false)" v-if="isPlaying" class="btn attack">Ataque</button>
+                <button @click="attack(true)" v-if="isPlaying" class="btn especial-attack">Ataque Especial</button>
+                <button @click='healAndAttack' v-if="isPlaying" class="btn heal">Curar</button>
+                <button v-if="isPlaying" class="btn give-up" @click="isPlaying = false">Desistir</button>
             </template>
-            <button @click="isPlaying = !isPlaying" v-if="!isPlaying" class="btn new-game">Iniciar Jogo</button>
+            <button @click="startGame" v-if="!isPlaying" class="btn new-game">Iniciar Jogo</button>
         </div>
-        <div v-if="log.length > 0" class="panel logs">
+        <div v-if="logs.length " class="panel logs">
             <ul>
-                <li></li>
+                <li class="log" v-for="(log, index) in logs" :key="index" :class="log.cls">{{log.text}}</li>
             </ul>
         </div>
     </div>
