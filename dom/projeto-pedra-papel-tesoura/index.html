@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="reset.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Pedra | Papel | Tesoura</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="panel">
+            <h1>Pedra / Papel / Tesoura</h1>
+            <div class="banner">
+                <img src="./pedra.jpg" alt="imagem pedra ">
+                <img src="./papel.jpg" alt="imagem papel ">
+                <img src="./tesoura.jpg" alt="imagem tesoura ">
+            </div>
+
+            <form v-if="showForm" class="panel formPlayer">
+                <label for=" round">Quantidade de Partidas:</label>
+                <select v-model="round" name="round" id="round">
+                    <option value="0"></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+
+                <label for=" numberPlayers">Quantidade de Jogadores:</label>
+                <select v-model="numberPlayers" name="numberPlayers" id="numberPlayers">
+                    <option value="0"></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+
+                <div v-if="numberPlayers >= 1" class="formLabel">
+                    <label for=" namePlayer1">Nome Jogador 1:</label>
+                    <input v-model="player1Name" type="text" id="namePlayer1">
+                </div>
+                <div v-if="numberPlayers == 2" class="formLabel">
+                    <label for=" namePlayer2">Nome Jogador 2:</label>
+                    <input v-model="player2Name" type="text" id="namePlayer2">
+                </div>
+                <div class="formButton">
+                    <button v-if="player1Name.length " @click="startGame" type="button">Iniciar</button>
+                </div>
+
+            </form>
+
+        </div>
+        <div v-if="!showForm" class="panel play">
+            <div>
+                {{player1Name}} x {{player2Name}}
+            </div>
+
+            <div class="formButton">
+                <button @click="stopGame" type="button">Reiniciar</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script src="app.js"></script>
+
+</html>
