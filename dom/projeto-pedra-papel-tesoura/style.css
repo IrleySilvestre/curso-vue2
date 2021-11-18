@@ -40,8 +40,6 @@ html {
 
 .formPlayer {
     width: 480px;
-    /* height: 400px; */
-    /* padding: 5rem; */
 }
 
 .formPlayer select {
@@ -84,11 +82,34 @@ html {
 }
 
 .formButton button {
-    background-color: #212529;
-    color: #fff;
+    background-color: #be3737;
+    color: rgb(12, 12, 12);
     font-weight: bold;
     border-radius: 5px;
     font-size: 1rem;
     padding: 0.5rem;
     width: 150px;
+    cursor: pointer;
+}
+
+.placar {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.placar p {
+    font-size: 2rem;
+    padding: 0.5rem;
+}
+
+.placar button {
+    background-color: #94a39f;
+    color: rgb(26, 24, 24);
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 150px;
+    cursor: pointer;
 }

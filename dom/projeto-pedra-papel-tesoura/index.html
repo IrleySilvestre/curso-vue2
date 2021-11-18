@@ -53,9 +53,22 @@
             </form>
 
         </div>
-        <div v-if="!showForm" class="panel play">
-            <div>
-                {{player1Name}} x {{player2Name}}
+        <div v-if="!showForm" class="panel">
+            <div class="placar">
+                <p>{{player1Name}}</p>
+                <p> {{player2Name}}</p>
+            </div>
+            <div v-if="image.player2 != './interrogacao.jpg'">
+                <p>{{msgWin}}</p>
+            </div>
+            <div class="banner placar ">
+                <img :src="image.player1" alt="imagem pedra ">
+
+                <img :src="image.player2" alt="imagem papel ">
+            </div>
+            <div class="banner placar ">
+                <button @click="sortImage" type="button">Sortear</button>
+                <button @click="sortImage" type="button">Sortear</button>
             </div>
 
             <div class="formButton">
