@@ -28,6 +28,7 @@ new Vue({
       this.numberPlayers = 0;
       this.score.player1 = 0;
       this.score.player2 = 0;
+      this.msgWin = "";
     },
     sortImage() {
       let images = ["./pedra.jpg", "./papel.jpg", "./tesoura.jpg"];
@@ -40,48 +41,54 @@ new Vue({
         let imgStr = images[Math.round(Math.random() * (2 - 0))];
         this.image.player2 = imgStr;
         this.activePlayer = 1;
+        this.round--;
         this.addScore();
       }
     },
     addScore() {
-      if (
-        this.image.player1 === "./pedra.jpg" &&
-        this.image.player2 === "./papel.jpg"
-      ) {
-        this.score.player2 = this.score.player2 + 1;
-        this.msgWin = `${this.player2Name} - Venceu!!!`;
-      } else if (
-        this.image.player2 === "./pedra.jpg" &&
-        this.image.player1 === "./papel.jpg"
-      ) {
-        this.score.player1 = this.score.player1 + 1;
-        this.msgWin = `${this.player1Name} - Venceu!!!`;
-      } else if (
-        this.image.player1 === "./pedra.jpg" &&
-        this.image.player2 === "./tesoura.jpg"
-      ) {
-        this.score.player1 = this.score.player1 + 1;
-        this.msgWin = `${this.player1Name} - Venceu!!!`;
-      } else if (
-        this.image.player2 === "./pedra.jpg" &&
-        this.image.player1 === "./tesoura.jpg"
-      ) {
-        this.score.player2 = this.score.player2 + 1;
-        this.msgWin = `${this.player1Name} - Venceu!!!`;
-      } else if (
-        this.image.player1 === "./papel.jpg" &&
-        this.image.player2 === "./tesoura.jpg"
-      ) {
-        this.score.player2 = this.score.player2 + 1;
-        this.msgWin = `${this.player2Name} - Venceu!!!`;
-      } else if (
-        this.image.player2 === "./papel.jpg" &&
-        this.image.player1 === "./tesoura.jpg"
-      ) {
-        this.score.player1 = this.score.player1 + 1;
-        this.msgWin = `${this.player1Name} - Venceu!!!`;
-      } else if (this.image.player2 == this.image.player1) {
-        this.msgWin = `Empatou !!!`;
+      if (this.round > 0) {
+        if (
+          this.image.player1 === "./pedra.jpg" &&
+          this.image.player2 === "./papel.jpg"
+        ) {
+          this.score.player2 = this.score.player2 + 1;
+          this.msgWin = `${this.player2Name} - Venceu!!!`;
+        } else if (
+          this.image.player2 === "./pedra.jpg" &&
+          this.image.player1 === "./papel.jpg"
+        ) {
+          this.score.player1 = this.score.player1 + 1;
+          this.msgWin = `${this.player1Name} - Venceu!!!`;
+        } else if (
+          this.image.player1 === "./pedra.jpg" &&
+          this.image.player2 === "./tesoura.jpg"
+        ) {
+          this.score.player1 = this.score.player1 + 1;
+          this.msgWin = `${this.player1Name} - Venceu!!!`;
+        } else if (
+          this.image.player2 === "./pedra.jpg" &&
+          this.image.player1 === "./tesoura.jpg"
+        ) {
+          this.score.player2 = this.score.player2 + 1;
+          this.msgWin = `${this.player1Name} - Venceu!!!`;
+        } else if (
+          this.image.player1 === "./papel.jpg" &&
+          this.image.player2 === "./tesoura.jpg"
+        ) {
+          this.score.player2 = this.score.player2 + 1;
+          this.msgWin = `${this.player2Name} - Venceu!!!`;
+        } else if (
+          this.image.player2 === "./papel.jpg" &&
+          this.image.player1 === "./tesoura.jpg"
+        ) {
+          this.score.player1 = this.score.player1 + 1;
+          this.msgWin = `${this.player1Name} - Venceu!!!`;
+        } else if (this.image.player2 == this.image.player1) {
+          this.msgWin = `Empatou !!!`;
+          this.round++;
+        }
+      } else {
+        this.msgWin = "Fim de Jogo (=;=)";
       }
     },
   },
