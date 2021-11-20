@@ -12,7 +12,7 @@ html {
 .panel {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     margin: 10px;
     padding: 20px;
@@ -103,7 +103,12 @@ html {
     padding: 0.5rem;
 }
 
-.placar button {
+.placar div {
+    text-align: center;
+    width: 100%;
+}
+
+.btnSort {
     background-color: #94a39f;
     color: rgb(26, 24, 24);
     font-weight: bold;
@@ -112,4 +117,18 @@ html {
     padding: 0.5rem;
     width: 150px;
     cursor: pointer;
+}
+
+.btnDisable {
+    /* font-weight: bold; */
+    /* color: rgb(26, 24, 24); */
+    /* border-radius: 5px; */
+    /* font-size: 1rem; */
+    /* padding: 0.5rem; */
+    /* width: 150px; */
+    cursor: not-allowed;
+    pointer-events: none;
+    /*Button disabled - CSS color class*/
+    color: #918686;
+    background-color: #ffffff;
 }

@@ -14,7 +14,7 @@
 <body>
     <div id="app">
         <div class="panel">
-            <h1>Pedra / Papel / Tesoura</h1>
+            <h1 style="font-size: 2rem;color: cadetblue;font-weight: bold;">Pedra / Papel / Tesoura</h1>
             <div class="banner">
                 <img src="./pedra.jpg" alt="imagem pedra ">
                 <img src="./papel.jpg" alt="imagem papel ">
@@ -22,33 +22,35 @@
             </div>
 
             <form v-if="showForm" class="panel formPlayer">
-                <label for=" round">Quantidade de Partidas:</label>
+                <label for=" round">Melhor de quantas partidas?</label>
                 <select v-model="round" name="round" id="round">
                     <option value="0"></option>
                     <option value="1">1</option>
-                    <option value="2">2</option>
                     <option value="3">3</option>
-                    <option value="4">4</option>
                     <option value="5">5</option>
+                    <option value="7">7</option>
+                    <option value="9">9</option>
+                    <option value="11">11</option>
                 </select>
 
-                <label for=" numberPlayers">Quantidade de Jogadores:</label>
+                <label for=" numberPlayers">Jocar contra o computador?</label>
                 <select v-model="numberPlayers" name="numberPlayers" id="numberPlayers">
                     <option value="0"></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
+                    <option value="1">Sim</option>
+                    <option value="2">Não</option>
                 </select>
 
                 <div v-if="numberPlayers >= 1" class="formLabel">
-                    <label for=" namePlayer1">Nome Jogador 1:</label>
+                    <label for="namePlayer1">Nome Jogador 1:</label>
                     <input v-model="player1Name" type="text" id="namePlayer1">
                 </div>
                 <div v-if="numberPlayers == 2" class="formLabel">
                     <label for=" namePlayer2">Nome Jogador 2:</label>
-                    <input v-model="player2Name" type="text" id="namePlayer2">
+                    <input v-model="player2Name" type="text" id="namePlayer2" required>
                 </div>
                 <div class="formButton">
-                    <button v-if="player1Name.length " @click="startGame" type="button">Iniciar</button>
+                    <button v-if="player1Name.length && player2Name.length" @click="startGame"
+                        type="button">Iniciar</button>
                 </div>
 
             </form>
@@ -56,24 +58,52 @@
         </div>
         <div v-if="!showForm" class="panel">
             <div class="placar">
-                <p>{{player1Name}}</p>
-                <p> {{player2Name}}</p>
+                <div>
+                    <p>{{player1Name}}</p>
+                </div>
+                <div>
+                    <p> {{player2Name}}</p>
+                </div>
             </div>
-            <div v-if="image.player2 != './interrogacao.jpg'">
-                <p>{{msgWin}}</p>
+            <div class="placar">
+                <div>
+                    <span>Pontos - {{score.player1}}</span>
+                </div>
+                <div>
+                    <span>Pontos - {{score.player2}}</span>
+                </div>
             </div>
-            <div class="banner placar ">
-                <img :src="image.player1" alt="imagem pedra ">
+            <div v-if="maxPointToWin > 0">
+                <p style="color: red; margin-bottom: 1rem;">Melhor de {{(maxPointToWin * 2) - 1}}</p>
+            </div>
 
-                <img :src="image.player2" alt="imagem papel ">
+            <div v-if="image.player2 != './interrogacao.jpg'">
+                <p style="color: red;margin-bottom: 1rem;">{{msgWin}}</p>
             </div>
+
+            <div v-if="champion.length > 0">
+                <p style="color: red; ">{{champion}} - Ganhou</p>
+            </div>
+
             <div class="banner placar ">
-                <button @click="sortImage" type="button">Sortear</button>
-                <button @click="sortImage" type="button">Sortear</button>
+                <div>
+                    <img :src="image.player1" alt="imagem pedra ">
+                </div>
+                <div>
+                    <img :src="image.player2" alt="imagem papel ">
+                </div>
+            </div>
+            <div v-if="round > 0" class="banner placar ">
+                <button class="btnSort" :class="{'btnDisable': !aplicaCss}" @click="sortImage" type="button">Sortear
+                </button>
+                <button class="btnSort" :class="{'btnDisable': aplicaCss}" @click="sortImage"
+                    type="button">Sortear</button>
             </div>
 
             <div class="formButton">
-                <button @click="stopGame" type="button">Reiniciar</button>
+                <button @click="stopGame" type="button">Sair</button>
+                <button style="background-color: rgb(168, 228, 213);" v-if="round == 0" @click="playAgain"
+                    type="button">Reiniciar</button>
             </div>
 
         </div>
