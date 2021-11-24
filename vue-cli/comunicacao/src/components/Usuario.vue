@@ -2,11 +2,21 @@
   <div class="container">
     <h1>Componente Usuário</h1>
     <p>Este é um componente muito legal !!!</p>
+    <p>
+      Nome é
+      <strong>{{nome}}</strong> Idade:
+      <strong>{{idade}}</strong>
+    </p>
     <button @click="alterarNome">Alterar Nome</button>
     <hr />
     <div class="componentes">
-      <UsuarioInfo :nome="nome" />
-      <UsuarioEditar />
+      <UsuarioInfo
+        :nome="nome"
+        :idade="idade"
+        @nomeMudou="nome = $event"
+        :reiniciarFn="reiniciarNome"
+      />
+      <UsuarioEditar :idade="idade" />
     </div>
   </div>
 </template>
@@ -22,11 +32,15 @@ export default {
   data() {
     return {
       nome: "Joaquim",
+      idade: 45,
     };
   },
   methods: {
     alterarNome() {
       this.nome = "Joana";
+    },
+    reiniciarNome() {
+      this.nome = "Pedro";
     },
   },
 };
@@ -34,10 +48,11 @@ export default {
 
 <style >
 .container {
-     background: #2c3e50;
-     color: #fff;
+  padding: 15px;
+  background: #2c3e50;
+  color: #fff;
 }
-.componentes{
-    display: flex;
+.componentes {
+  display: flex;
 }
 </style>
