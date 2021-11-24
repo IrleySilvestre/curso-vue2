@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+vue-cli/desafico-modulo-7/yarn.lock
+vue-cli/desafico-modulo-7/package-lock.json
+.gitignore
+vue-cli/desafico-modulo-7/yarn.lock
