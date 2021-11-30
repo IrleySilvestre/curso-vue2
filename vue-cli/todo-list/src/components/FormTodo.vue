@@ -1,21 +1,29 @@
 <template >
   <div>
-    <input type="text" v-model="todoName" />
-    <ListTodo :todos='todos' />
+    <div>
+      <input @keydown.enter="add" type="text" v-model="name" />
+      <button @click="add">+</button>
+    </div>
   </div>
 </template>
 <script>
-import ListTodo from "./ListTodo.vue";
 export default {
-  components: {
-    ListTodo,
-  },
   data() {
     return {
-      todos:[{}],
+      name: "",
     };
+  },
+  methods: {
+    add(){
+      this.$emit('taskAdded', {name:this.name})
+      this.name = ''
+    }
   },
 };
 </script>
-<style >
+<style  scoped>
+div {
+  margin-top: 20px;
+  text-align: left;
+}
 </style>

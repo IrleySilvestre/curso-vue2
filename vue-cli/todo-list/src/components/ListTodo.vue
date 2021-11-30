@@ -1,14 +1,24 @@
 <template >
   <div>
-    <ul>
-      <li v-for="(todo, i) in todos" :key="i">{{ todo.todoName }}</li>
-    </ul>
+    <Todo 
+      class="list" 
+      v-for="(task, i) in tasks" 
+      :key="i" 
+      :task="task"
+       @taskRemoved="$emit('taskRemoved',i)"
+       @taskModified="$emit('taskModified',i)"/>
   </div>
 </template>
 <script>
+import Todo from "../components/Todo.vue";
 export default {
-  props: { todos: [{ todoName: "", id: 1, status: false }] },
+  props: { tasks: { type: Array, required: true } },
+  components: {
+    Todo,
+  },
 };
 </script>
-<style >
+<style scoped>
+
+
 </style>
