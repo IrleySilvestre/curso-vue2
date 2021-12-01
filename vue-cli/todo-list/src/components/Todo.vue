@@ -11,6 +11,7 @@
   </div>
 </template>
 <script>
+import bus from "../bus";
 export default {
   props: {
     task: {
@@ -34,7 +35,8 @@ export default {
       this.$emit("taskModified", this.task);
     },
     editTask() {
-      this.$emit("taskEdited", this.task);
+      this.removeTask()
+      bus.editTask(this.task);
     },
   },
 };

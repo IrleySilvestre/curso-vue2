@@ -5,9 +5,8 @@
       v-for="(task, i) in tasks"
       :key="i"
       :task="task"
-      @taskRemoved="$emit('taskRemoved',i)"
-      @taskModified="$emit('taskModified',i)"
-      @taskEdited="$emit('taskEdited',task)"
+      @taskRemoved="$emit('taskRemoved', i)"
+      @taskModified="$emit('taskModified', i)"
     />
   </div>
 </template>

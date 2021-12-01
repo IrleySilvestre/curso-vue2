@@ -3,7 +3,11 @@
     <h1>Lista de Tarefas</h1>
     <ProgressTodo :statusTasks="percentProgress" />
     <FormTodoVue @taskAdded="addTask" />
-    <ListTodo :tasks="tasks" @taskRemoved="removeTask" @taskModified="tooglePending" />
+    <ListTodo
+      :tasks="tasks"
+      @taskRemoved="removeTask"
+      @taskModified="tooglePending"
+    />
   </div>
 </template>
 
@@ -22,8 +26,8 @@ export default {
   data() {
     return {
       tasks: [
-        { name: "Comprar pao", pending: true },
-        { name: "Ir ao Cinema", pending: false },
+        // { name: "Comprar pao", pending: true },
+        // { name: "Ir ao Cinema", pending: false },
       ],
       percentProgress: 0,
     };
@@ -37,10 +41,17 @@ export default {
       const realyNew = this.tasks.filter(sameName).length == 0;
 
       if (realyNew && task.name.length > 0) {
-        this.tasks.push({
-          name: task.name,
-          pending: task.pending || true,
-        });
+        if (task.pending == undefined) {
+          this.tasks.push({
+            name: task.name,
+            pending: task.pending || true ,
+          });
+        } else {
+          this.tasks.push({
+            name: task.name,
+            pending: task.pending ,
+          });
+        }
       }
     },
     removeTask(i) {
@@ -58,7 +69,11 @@ export default {
           cont++;
         }
       });
-      this.percentProgress = Math.round((cont * 100) / allTask);
+      if(allTask == 0){
+        this.percentProgress = 0
+      }else{
+        this.percentProgress = Math.round((cont * 100) / allTask);
+      }
     },
   },
   watch: {

@@ -1,12 +1,16 @@
 <template >
   <div class="content">
-    <div :style="{ width: statusTasks + '%' }">{{ statusTasks + '%' }}</div>
+    <div :style="{ width: statusTasks + '%' }">{{statusTasks}}%</div>
   </div>
 </template>
 <script>
 export default {
   props: {
-    statusTasks: Number,
+    statusTasks: {
+      type: Number,
+      required: true,
+      default: 0
+    },
   },
 };
 </script>
