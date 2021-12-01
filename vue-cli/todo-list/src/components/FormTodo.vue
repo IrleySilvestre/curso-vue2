@@ -7,6 +7,7 @@
   </div>
 </template>
 <script>
+import bus from "../bus";
 export default {
   data() {
     return {
@@ -14,10 +15,15 @@ export default {
     };
   },
   methods: {
-    add(){
-      this.$emit('taskAdded', {name:this.name})
-      this.name = ''
-    }
+    add() {
+      this.$emit("taskAdded", { name: this.name });
+      this.name = "";
+    },
+  },
+  created() {
+    bus.taskEdited((task) => {
+      this.name = task.name;
+    });
   },
 };
 </script>

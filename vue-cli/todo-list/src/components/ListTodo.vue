@@ -1,12 +1,14 @@
 <template >
   <div>
-    <Todo 
-      class="list" 
-      v-for="(task, i) in tasks" 
-      :key="i" 
+    <Todo
+      class="list"
+      v-for="(task, i) in tasks"
+      :key="i"
       :task="task"
-       @taskRemoved="$emit('taskRemoved',i)"
-       @taskModified="$emit('taskModified',i)"/>
+      @taskRemoved="$emit('taskRemoved',i)"
+      @taskModified="$emit('taskModified',i)"
+      @taskEdited="$emit('taskEdited',task)"
+    />
   </div>
 </template>
 <script>
@@ -19,6 +21,4 @@ export default {
 };
 </script>
 <style scoped>
-
-
 </style>

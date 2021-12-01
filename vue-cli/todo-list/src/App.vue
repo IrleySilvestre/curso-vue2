@@ -3,11 +3,7 @@
     <h1>Lista de Tarefas</h1>
     <ProgressTodo :statusTasks="percentProgress" />
     <FormTodoVue @taskAdded="addTask" />
-    <ListTodo
-      :tasks="tasks"
-      @taskRemoved="removeTask"
-      @taskModified="tooglePending"
-    />
+    <ListTodo :tasks="tasks" @taskRemoved="removeTask" @taskModified="tooglePending" />
   </div>
 </template>
 
@@ -33,7 +29,7 @@ export default {
     };
   },
   mounted() {
-    this.calcPercent()
+    this.calcPercent();
   },
   methods: {
     addTask(task) {
@@ -52,7 +48,7 @@ export default {
     },
     tooglePending(i) {
       this.tasks[i].pending = !this.tasks[i].pending;
-      this.calcPercent()
+      this.calcPercent();
     },
     calcPercent() {
       const allTask = this.tasks.length;
@@ -67,7 +63,7 @@ export default {
   },
   watch: {
     tasks: function () {
-      this.calcPercent()
+      this.calcPercent();
     },
   },
 };

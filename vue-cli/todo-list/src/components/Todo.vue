@@ -1,7 +1,13 @@
 <template >
-  <div :class="stateClass" class="task" >
-    <p><input @click="checkTask" type="checkbox" name="taskPending" :checked='! task.pending' >{{ task.name }}</p>
-    <div><button>Editar</button> <button @click="removeTask">Excluir</button></div>
+  <div :class="stateClass" class="task">
+    <p>
+      <input @click="checkTask" type="checkbox" name="taskPending" :checked="! task.pending" />
+      {{ task.name }}
+    </p>
+    <div>
+      <button @click="editTask">Editar</button>
+      <button @click="removeTask">Excluir</button>
+    </div>
   </div>
 </template>
 <script>
@@ -21,12 +27,15 @@ export default {
     },
   },
   methods: {
-      removeTask(){
-          this.$emit('taskRemoved', this.task)
-        },
-        checkTask(){
-            this.$emit('taskModified', this.task)
-        }
+    removeTask() {
+      this.$emit("taskRemoved", this.task);
+    },
+    checkTask() {
+      this.$emit("taskModified", this.task);
+    },
+    editTask() {
+      this.$emit("taskEdited", this.task);
+    },
   },
 };
 </script>
@@ -41,7 +50,7 @@ export default {
   border-radius: 5px;
 }
 .pending {
-  font-weight:bold; 
+  font-weight: bold;
 }
 .done {
   text-decoration-line: line-through;
