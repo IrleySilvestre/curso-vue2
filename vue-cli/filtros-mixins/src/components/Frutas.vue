@@ -2,7 +2,7 @@
   <div>
     <div class="content">
       <div>
-        <input @keypress="add" type="text" v-model="fruta" />
+        <input @keypress.enter="add" type="text" v-model="fruta" />
         <button @click="add">+</button>
       </div>
       <ul>
@@ -12,19 +12,9 @@
   </div>
 </template>
 <script>
+import FrutasMixins from "../FrutasMixins";
 export default {
-  data() {
-    return {
-      fruta: "",
-      frutas: ["banana", "maca", "laranja"],
-    };
-  },
-  methods: {
-    add() {
-      this.frutas.push(this.fruta);
-      this.fruta = "";
-    },
-  },
+  mixins: [FrutasMixins],
 };
 </script>
 <style scoped>
