@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 @click="selectComponent">Quiz</h1>
-    <component :is="componentSelected"></component>
+    <component :bgColor='bgColor' :is="componentSelected"></component>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       componentSelected: "Questions",
+      bgColor:'green'
     };
   },
   methods: {
@@ -21,6 +22,9 @@ export default {
       return (this.componentSelected =
         this.componentSelected == "Questions" ? "Result" : "Questions");
     },
+    setBgColor(){
+      this.bgColor = 'green'
+    }
   },
 };
 </script>

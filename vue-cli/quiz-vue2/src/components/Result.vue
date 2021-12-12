@@ -1,17 +1,20 @@
 <template>
   <div class="d-flex justify-content-center">
-    <div class="result"></div>
+    <div class="result" :style="{backgroundColor: bgColor}"></div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ['bgColor'],
+
+};
 </script>
 <style>
 .result {
-  height: 400px;
+  height: 200px;
   color: #000000;
   background-color: #8f3232;
-  width: 70%;
+  width: 50%;
   border-radius: 20px;
   font-size: 3rem;
 }
