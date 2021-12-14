@@ -1,37 +1,24 @@
 <template>
-  <div class="d-flex justify-content-center ">
-    <div  class="quest"> 
-      <p @click="sortQuestion" class="mt-3"> {{question.text}}</p>
-      <hr/>
+  <div class="d-flex justify-content-center">
+    <div class="quest">
+      <p class="mt-3">{{ question.text }}</p>
+      <hr />
       <div class="aswers">
-        <div v-for="(opcao, i) in question.answers" :key="i" @click="selectAnswer(i)">{{opcao.text}}</div>
+        <div
+          v-for="(opcao, i) in question.answers"
+          :key="i"
+          @click="$emit('answerSelected', i)"
+        >
+          {{ opcao.text }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import questions from '../util/questions'
 export default {
-  data() {
-    return {
-      question : []
-    }
-  },
-  methods: {
-    sortQuestion(){
-      this.question = questions[Math.floor(Math.random() * 6)]
-    },
-    selectAnswer(i){
-      if(this.question.answers[i].correct){
-        console.log('ok');
-      }else{
-        console.log('errou');
-      }
-    }
-  },
-  created() {
-    this.sortQuestion()
-  },
+  name: "Questions",
+  props: { question: { type: Object, required: true } },
 };
 </script>
 <style>
@@ -45,12 +32,12 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.quest p{
+.quest p {
   font-size: 2rem;
   color: darkolivegreen;
   font-weight: bold;
 }
-.quest hr{
+.quest hr {
   width: 100%;
 }
 
@@ -62,7 +49,7 @@ export default {
   flex-wrap: wrap;
   border-radius: 10px;
 }
-.aswers div{
+.aswers div {
   display: flex;
   cursor: pointer;
   justify-content: center;
@@ -76,7 +63,8 @@ export default {
   color: #ffffff;
   font-size: 1.5rem;
 }
-.aswers div:hover{
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+.aswers div:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

@@ -1,30 +1,58 @@
 <template>
   <div id="app">
-    <h1 @click="selectComponent">Quiz</h1>
-    <component :bgColor='bgColor' :is="componentSelected"></component>
+    <h1>Quiz</h1>
+    <transition name="flip" mode="out-in">
+      <Questions
+        v-if="!answerSelected"
+        :question="question"
+        @answerSelected="selectAnswer"
+      ></Questions>
+      <Result
+        @retorneToQuestion="sortQuestion"
+        v-else
+        :msg="msg"
+        :bgColor="bgColor"
+      ></Result>
+    </transition>
   </div>
 </template>
 
 <script>
 import Questions from "./components/Questions.vue";
 import Result from "./components/Result.vue";
+import questions from "./util/questions";
 export default {
   name: "App",
   components: { Questions, Result },
   data() {
     return {
-      componentSelected: "Questions",
-      bgColor:'green'
+      questions: questions,
+      question: {},
+      bgColor: "green",
+      answerSelected: false,
+      msg: "",
     };
   },
   methods: {
-    selectComponent() {
-      return (this.componentSelected =
-        this.componentSelected == "Questions" ? "Result" : "Questions");
+    sortQuestion() {
+      this.question = this.questions[Math.floor(Math.random() * 6)];
+      this.answerSelected = false;
+      return this.question;
     },
-    setBgColor(){
-      this.bgColor = 'green'
-    }
+    selectAnswer(i) {
+      if (this.question.answers[i].correct) {
+        this.answerSelected = true;
+        this.bgColor = "green";
+        this.msg = "Parabéns você acertou ...";
+      } else {
+        this.answerSelected = true;
+        this.bgColor = "red";
+        this.msg = "Você Errou ...";
+      }
+    },
+  },
+  created() {
+    this.sortQuestion();
   },
 };
 </script>
@@ -50,5 +78,30 @@ body {
 #app h1 {
   font-weight: bold;
   font-size: 4rem;
+}
+
+@keyframes flip-in {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(90deg);
+  }
+}
+@keyframes flip-out {
+  from {
+    transform: rotateY(90deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+.flip-enter-active {
+  animation: flip-in 0.3s ease;
+}
+
+.flip-leave-active {
+  animation: flip-out 0.3s ease;
 }
 </style>

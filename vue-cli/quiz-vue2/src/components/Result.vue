@@ -1,21 +1,30 @@
 <template>
-  <div class="d-flex justify-content-center">
-    <div class="result" :style="{backgroundColor: bgColor}"></div>
+  <div class="d-flex flex-column align-items-center">
+    <div class="result" :style="{ backgroundColor: bgColor }">{{ msg }}</div>
+    <button @click="$emit('retorneToQuestion')" class="btn btn-secondary mt-2">
+      Retornar
+    </button>
   </div>
 </template>
+
 <script>
 export default {
-  props: ['bgColor'],
-
+  name: "Result",
+  props: ["bgColor", "msg"],
 };
 </script>
+
 <style>
 .result {
-  height: 200px;
-  color: #000000;
+  height: 150px;
+  color: #ffffff;
   background-color: #8f3232;
-  width: 50%;
+  width: 450px;
   border-radius: 20px;
-  font-size: 3rem;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
