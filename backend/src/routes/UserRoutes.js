@@ -6,6 +6,8 @@ const userController = require("../controllers/userController");
 
 router.post("/user/register", userController.registerNewUser);
 
+router.get("/user/list", userController.listUsers);
+
 router.post("/user/login", userController.loginUser);
 
 router.get("/user/profile", userController.returnUserProfile);

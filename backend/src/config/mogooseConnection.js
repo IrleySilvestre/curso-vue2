@@ -14,10 +14,10 @@ mongoose.Promise = global.Promise;
 
 // ==> Conexão Base de Dados:
 mongoose
-  .connect(db.local.localUrlDatabse, {
+  .connect(db.local.localDatabaseUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
+    autoIndex: true,
   })
   .then(
     () => {
