@@ -2,15 +2,14 @@ const User = require("../models/userModel");
 
 exports.listUsers = async (req, res) => {
   try {
-    const users = await User.find({})
-    return await res.status(200).json(users)
+    const users = await User.find({});
+    return await res.status(200).json(users);
   } catch (error) {
     return res.status(400).json({ err: error });
   }
-}
+};
 
 exports.registerNewUser = async (req, res) => {
-
   try {
     // => Antes vamos fazer uma verificação se o usuário já possui algum e-mail já cadastrado:
     const isUser = await User.find({ email: req.body.email });
@@ -31,22 +30,21 @@ exports.registerNewUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-  
-    const user = await User.findOne({ name: req.body.name })
-    if (user){
-      await User.deleteOne({ name: req.body.name })
-      return res.status(200).json({ msg: 'sucesso' })
-    }else{
-      return res.status(400).json({msg: req.body.name +' '+ `nao localizado`})
+    const user = await User.findOne({ name: req.body.name });
+    if (user) {
+      await User.deleteOne({ name: req.body.name });
+      return res.status(200).json({ msg: "sucesso" });
+    } else {
+      return res
+        .status(400)
+        .json({ msg: req.body.name + " " + `nao localizado` });
     }
-
   } catch (error) {
     return res.status(400).json({
-      err: error
-    })
+      err: error,
+    });
   }
-}
-
+};
 
 exports.loginUser = async (req, res) => {
   try {
@@ -61,11 +59,11 @@ exports.loginUser = async (req, res) => {
     }
 
     const token = await User.generateAuthToken();
-    res
+    return res
       .status(201)
       .json({ message: "Usuario (a) logado com sucesso ", user, token });
   } catch (error) {
-    res.status(400).json({ err: error });
+    return res.status(400).json({ err: error });
   }
 };
 
