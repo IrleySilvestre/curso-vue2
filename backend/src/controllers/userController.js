@@ -51,9 +51,8 @@ exports.loginUser = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const user = await User.findByCredentials(email, password);
-
     if (!user) {
-      res.status(401).json({
+      return res.status(401).json({
         msg: " Erro ao realizar o Login!, verifique as suas credenciais",
       });
     }

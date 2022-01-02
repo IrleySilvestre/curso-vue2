@@ -40,15 +40,16 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
-userSchema.statics.findByCredentials = async (email, password) => {
+userSchema.statics.findByCredentials = async (email) => {
   const user = await User.findOne({ email });
-  console.log(user);
-
   if (!user) {
+    console.log(user);
+
     throw new Error({ error: "Login inválido" });
   }
 
   const isPasswordMath = await bcrypt.compare(password, user.password);
+
   if (!isPasswordMath) {
     throw new Error({ error: "Senha inválida" });
   }
