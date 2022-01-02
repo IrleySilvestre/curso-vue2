@@ -14,17 +14,17 @@ mongoose.Promise = global.Promise;
 
 // ==> Conexão Base de Dados:
 mongoose
-  .connect(db.local.localDatabaseUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    autoIndex: true,
-  })
-  .then(
-    () => {
-      console.log("A Base de Dados foi conectada com sucesso!");
-    },
-    (err) => {
-      console.log(`Erro ao conectar com a Base de Dados...: ${err}`);
-      process.exit();
-    }
-  );
+    .connect(db.local.localDatabaseUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        autoIndex: true,
+    })
+    .then(
+        () => {
+            console.log("A Base de Dados foi conectada com sucesso!");
+        },
+        (err) => {
+            console.log(`Erro ao conectar com a Base de Dados...: ${err}`);
+            process.exit();
+        }
+    );
