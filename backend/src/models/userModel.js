@@ -41,7 +41,6 @@ userSchema.statics.findByCredentials = async(email, password) => {
     }
 
     const isPasswordMath = await bcrypt.compare(password, user.password);
-    console.log(isPasswordMath);
 
     if (!isPasswordMath) {
         throw new Error({ error: "Senha inválida" });
