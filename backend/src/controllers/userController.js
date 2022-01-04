@@ -73,6 +73,26 @@ exports.loginUser = async(req, res) => {
     }
 };
 
+exports.updateUser = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+        const { email } = req.body;
+        const { password } = req.body;
+
+        const doc = await User.findById(id);
+        doc.name = name;
+        doc.email = email;
+        doc.password = password;
+
+        await doc.save();
+        return res.status(200).json({ msg: "Sucesso" });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({ error });
+    }
+};
+
 exports.returnUserProfile = async(req, res) => {
     await res.json(req.userData);
 };
