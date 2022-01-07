@@ -1,6 +1,11 @@
 export default {
   name: "LoginComponent",
   data() {
-    return {};
+    return {
+      form:{
+        email:'',
+        password:''
+      }
+    };
   },
 };
