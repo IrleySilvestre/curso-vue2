@@ -1,32 +1,30 @@
+import { required, minLength, email } from "vuelidate/lib/validators";
+
 export default {
+
   name: "LoginComponent",
   data() {
     return {
-      form: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: ""
     };
   },
+
+  validations: {
+        password: {
+          required,
+          minLength: minLength(6)
+        },
+        email:{
+          required,
+          email
+        } 
+  },
+  
   methods: {
-    validateState(ref) {
-      if (
-        this.veeFields[ref] &&
-        (this.veeFields[ref].dirty || this.veeFields[ref].validated)
-      ) {
-        return !this.veeErrors.has(ref);
-      }
-      return null;
-    },
-
-    onSubmit() {
-      this.$validator.validateAll().then((result) => {
-        if (!result) {
-          return;
-        }
-
-        alert("Form submitted!");
-      });
+    loginUser() {
+      console.log();
     },
   },
+
 };

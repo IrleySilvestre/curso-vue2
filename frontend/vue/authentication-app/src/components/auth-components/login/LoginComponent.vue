@@ -3,36 +3,31 @@
     <h1 class="text-center">Login</h1>
     <b-form @submit.stop.prevent="onSubmit">
       <b-form-group
-        id="input-group-1"
+        id="input-group-email"
         label="Email address:"
-        label-for="input-1"
+        label-for="input-email"
       >
         <b-form-input
           id="input-email"
           name="input-email"
-          v-model="form.email"
+          v-model.trim="$v.email.$model"
           type="email"
-          placeholder="email"
-          v-validate="{ required: true, email: true }"
-          :state="validateState('input-email')"
-          aria-describedby="input-email-live-feedback"
-          data-vv-as="Email"
+          placeholder="Email"
         ></b-form-input>
-        <b-form-invalid-feedback id="input-email-live-feedback">{{
-          veeErrors.first("input-email")
-        }}</b-form-invalid-feedback>
       </b-form-group>
+
       <b-form-group
         class="mt-2"
-        id="input-group-2"
+        id="input-group-password"
         label="Password:"
-        label-for="password"
+        label-for="input-password"
       >
         <b-form-input
-          id="password"
+          id="input-password"
+          name="input-password"
           type="password"
-          placeholder="Password"
-          aria-describedby="password-help-block"
+          placeholder="Senha"
+          v-model.trim="$v.password.$model"
         ></b-form-input>
       </b-form-group>
     </b-form>
@@ -42,7 +37,9 @@
         ><p class="mt-2 text-primary">Quero me cadastrar</p></router-link
       >
     </div>
+    <div>{{$v.email}}</div>
   </b-container>
+
 </template>
 <script src="./Login.js"></script>
 <style scoped>
