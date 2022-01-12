@@ -12,6 +12,15 @@ export default {
      components: {
           User,
      },
+
+     created() {
+          this.$http
+               .post("usuarios.json", {
+                    name: "Irley Jose Silvestre",
+                    email: "irleysilvestre.mba@gmail.com",
+               })
+               .then((res) => console.log(res));
+     },
 };
 </script>
 
