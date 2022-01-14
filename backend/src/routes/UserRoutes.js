@@ -17,4 +17,6 @@ router.post("/user/delete", userController.deleteUser);
 
 router.post("/user/update/:id", userController.updateUser);
 
+router.get("/user/listById/:id", userController.listUsersById);
+
 module.exports = router;
