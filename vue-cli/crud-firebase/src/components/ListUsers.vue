@@ -42,10 +42,12 @@
 <script>
 export default {
   name: "ListUsers",
-  props: { users: Array },
+  props: { updateList: Boolean },
   data() {
     return {
       selected: [],
+      users: [],
+      userToEdit: [],
     };
   },
   methods: {
@@ -53,14 +55,39 @@ export default {
       this.selected = items;
     },
 
+    listUsers() {
+      try {
+        this.$http.get("/user/list").then((res) => {
+          this.users = res.data;
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
     editUser(id) {
       this.$http.get(`/user/listById/${id}`).then((res) => {
-        this.$emit("edite-user", res.data);
-        console.log(res.data);
+        this.userToEdit = res.data;
+        this.$parent.form = res.data;
+        this.$parent.password = "";
+        this.$parent.isAdd = false;
       });
     },
+
     deleteUser(id) {
-      console.log(id);
+      this.$http.post(`/user/delete/${id}`).then(() => {
+        this.$parent.form = {};
+        this.listUsers();
+      });
+    },
+  },
+
+  mounted() {
+    this.listUsers();
+  },
+
+  watch: {
+    updateList: function () {
+      this.listUsers();
     },
   },
 };

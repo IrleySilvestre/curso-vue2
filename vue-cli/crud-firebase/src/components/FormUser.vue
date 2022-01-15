@@ -3,7 +3,7 @@
     <h1 class="text-center">Cadastro Usuarios</h1>
     <hr />
     <b-container>
-      <b-form class="bg-light p-4 shadow-sm">
+      <b-form @submit.stop.prevent="addUser" class="bg-light p-4 shadow-sm">
         <b-form-group
           id="input-group-name"
           label="Nome:"
@@ -33,6 +33,7 @@
         </b-form-group>
 
         <b-form-group
+          v-if="isAdd"
           id="input-group-password"
           label="Senha:"
           label-for="input-password"
@@ -45,7 +46,7 @@
             required
           ></b-form-input>
         </b-form-group>
-        <b-button @click="addUser" class="mr-2" variant="primary"
+        <b-button type="submit" class="mr-2" variant="primary"
           >Adicionar</b-button
         >
         <b-button @click="cleanForm" variant="danger">Limpar</b-button>
@@ -53,15 +54,19 @@
     </b-container>
 
     <b-container class="mt-4 bg-light p-2 shadow-sm">
-      <ListUsers :users="users" />
+      <ListUsers :updateList="updateList" />
     </b-container>
   </div>
 </template>
+
 <script>
 import ListUsers from "./ListUsers.vue";
+
 export default {
-  components: { ListUsers },
-  name: "User",
+  name: "FormUser",
+  components: {
+    ListUsers,
+  },
   data() {
     return {
       form: {
@@ -69,41 +74,44 @@ export default {
         email: "",
         password: "",
       },
-      users: [
-        //    { name: "Irley", email: "irleysilvestre.mba@gmail.com" },
-        //    { name: "Joaquim", email: "joaquim@gmail.com" },
-      ],
+      updateList: false,
+      isAdd: true,
     };
   },
+
   methods: {
     addUser() {
       try {
-        this.$http.post("/user/register", this.form).then((res) => {
-          console.log(res.data);
-        });
-        this.cleanForm();
-        this.listUsers();
+        if (!this.form._id) {
+          this.$http.post("/user/register", this.form).then((res) => {
+            if (res.status == 201) {
+              this.updateList = !this.updateList;
+            }
+          });
+        } else {
+          this.$http
+            .put(`/user/update/${this.form._id}`, this.form)
+            .then((res) => {
+              if (res.status == 200) {
+                this.updateList = !this.updateList;
+              }
+            });
+        }
       } catch (error) {
         console.log(error);
       }
-    },
-    cleanForm() {
-      (this.name = ""), (this.email = "");
+      this.cleanForm();
     },
 
-    listUsers() {
-      try {
-        this.$http.get("/user/list").then((res) => {
-          this.users = res.data;
-        });
-      } catch (error) {
-        console.log(error);
-      }
+    cleanForm() {
+      this.form.name = "";
+      this.form.email = "";
+      this.form.password = "";
+      this.form._id = "";
+      this.isAdd = true;
     },
-  },
-  mounted() {
-    this.listUsers();
   },
 };
 </script>
+
 <style></style>

@@ -44,9 +44,11 @@ exports.registerNewUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.findOne({ name: req.body.name });
+    const _id = req.params.id;
+    console.log(_id);
+    const user = await User.findOne({ _id });
     if (user) {
-      await User.deleteOne({ name: req.body.name });
+      await User.deleteOne({ _id });
       return res.status(200).json({ msg: "sucesso" });
     } else {
       return res

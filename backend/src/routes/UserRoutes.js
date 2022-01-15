@@ -13,9 +13,9 @@ router.post("/user/login", userController.loginUser);
 
 router.get("/user/profile", auth, userController.returnUserProfile);
 
-router.post("/user/delete", userController.deleteUser);
+router.post("/user/delete/:id", userController.deleteUser);
 
-router.post("/user/update/:id", userController.updateUser);
+router.put("/user/update/:id", userController.updateUser);
 
 router.get("/user/listById/:id", userController.listUsersById);
 
