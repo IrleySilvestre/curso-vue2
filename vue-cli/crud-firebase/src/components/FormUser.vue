@@ -2,8 +2,8 @@
   <div>
     <h1 class="text-center">Cadastro Usuarios</h1>
     <hr />
-    <b-container>
-      <b-form @submit.stop.prevent="addUser" class="bg-light p-4 shadow-sm">
+    <b-container class="mt-4 bg-light p-2 shadow-sm">
+      <b-form @submit.stop.prevent="addUser" class="p-4">
         <b-form-group
           id="input-group-name"
           label="Nome:"
@@ -11,7 +11,7 @@
         >
           <b-form-input
             id="input-name"
-            v-model="form.name"
+            v-model.trim="form.name"
             type="text"
             placeholder="Digite o nome"
             required
@@ -25,7 +25,7 @@
         >
           <b-form-input
             id="input-email"
-            v-model="form.email"
+            v-model.trim="form.email"
             type="email"
             placeholder="Digite o email"
             required
@@ -40,7 +40,7 @@
         >
           <b-form-input
             id="input-password"
-            v-model="form.password"
+            v-model.trim="form.password"
             type="password"
             placeholder="Digite uma senha"
             required
@@ -61,6 +61,7 @@
 
 <script>
 import ListUsers from "./ListUsers.vue";
+import swal from "sweetalert";
 
 export default {
   name: "FormUser",
@@ -88,6 +89,10 @@ export default {
               this.updateList = !this.updateList;
             }
           });
+          swal("Incluido com Sucesso", {
+            icon: "success",
+            timer: 2500,
+          });
         } else {
           this.$http
             .put(`/user/update/${this.form._id}`, this.form)
@@ -96,6 +101,10 @@ export default {
                 this.updateList = !this.updateList;
               }
             });
+          swal("Alterado com Sucesso", {
+            icon: "success",
+            timer: 2500,
+          });
         }
       } catch (error) {
         console.log(error);

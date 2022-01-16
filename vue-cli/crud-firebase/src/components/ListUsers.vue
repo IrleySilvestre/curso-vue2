@@ -4,7 +4,6 @@
       <b-table-simple
         striped
         hover
-        @row-selected="onRowSelected"
         selectMode="single"
         ref="selectableTable"
         selectable
@@ -39,7 +38,9 @@
     </b-container>
   </div>
 </template>
+
 <script>
+import swal from "sweetalert";
 export default {
   name: "ListUsers",
   props: { updateList: Boolean },
@@ -51,10 +52,6 @@ export default {
     };
   },
   methods: {
-    onRowSelected(items) {
-      this.selected = items;
-    },
-
     listUsers() {
       try {
         this.$http.get("/user/list").then((res) => {
@@ -74,9 +71,28 @@ export default {
     },
 
     deleteUser(id) {
-      this.$http.post(`/user/delete/${id}`).then(() => {
-        this.$parent.form = {};
-        this.listUsers();
+      swal({
+        title: "Confirma Exclusão?",
+        text: "",
+        icon: "warning",
+        buttons: ["Cancelar", "Sim"],
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          this.$http.post(`/user/delete/${id}`).then(() => {
+            this.$parent.form = {};
+            this.listUsers();
+            swal("Apagado", {
+              icon: "success",
+              timer: 2500,
+            });
+          });
+        } else {
+          swal("Cancelado", {
+            icon: "success",
+            timer: 2500,
+          });
+        }
       });
     },
   },
