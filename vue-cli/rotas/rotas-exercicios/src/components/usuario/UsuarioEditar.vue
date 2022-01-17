@@ -12,6 +12,23 @@
 export default {
   name: "UsuarioEditar",
   props: ["id"],
+  data() {
+    return {
+      confirmou: false,
+    };
+  },
+  // eslint-disable-next-line no-unused-vars
+  beforeRouteLeave(to, from, next) {
+    if (this.confirmou) {
+      next();
+    } else {
+      if (confirm("tem certeza?")) {
+        next();
+      } else {
+        next(false);
+      }
+    }
+  },
 };
 </script>
 

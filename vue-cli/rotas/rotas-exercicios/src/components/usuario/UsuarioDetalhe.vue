@@ -18,6 +18,12 @@
 export default {
   name: "UsuarioDetalhe",
   props: ["id"],
+  // eslint-disable-next-line
+  beforeRouteEnter(to, from, next) {
+    // eslint-disable-next-line
+    console.log("Estou no componente detalhe");
+    next();
+  },
 
   //   data() {
   //     return {

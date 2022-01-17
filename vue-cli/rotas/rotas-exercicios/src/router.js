@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 import Vue from "vue";
 import Router from "vue-router";
 import Inicio from "./components/home/Inicio.vue";
@@ -10,7 +12,7 @@ import UsuarioEditar from "./components/usuario/UsuarioEditar.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   routes: [
     {
@@ -31,7 +33,20 @@ export default new Router({
       props: true,
       children: [
         { path: "", component: UsuarioLista },
-        { path: ":id", component: UsuarioDetalhe, props: true },
+        {
+          path: ":id",
+          component: UsuarioDetalhe,
+          props: true,
+          beforeEnter: (to, from, next) => {
+            console.log("antes da rota -> usuario detalhe");
+            let user = true;
+            if (user) {
+              next();
+            } else {
+              console.log("acesso negado");
+            }
+          },
+        },
         {
           path: ":id/editar",
           component: UsuarioEditar,
@@ -46,3 +61,10 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  console.log("Antes das rotas Global");
+  next();
+});
+
+export default router;
