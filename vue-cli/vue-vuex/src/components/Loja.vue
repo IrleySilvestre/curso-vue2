@@ -17,7 +17,7 @@ export default {
     return {
       sequencia: 1,
       quantidade: 1,
-      preco: 9.99,
+      preco: 1.99,
     };
   },
   methods: {
@@ -35,6 +35,27 @@ export default {
       // this.$store.commit("adicionarProduto", produto);
       this.adicionarProduto(produto);
     },
+  },
+  computed: {
+    quantidadePadrao() {
+      return this.$store.state.quantidadePadrao;
+    },
+
+    precoPadrao() {
+      return this.$store.state.precoPadrao;
+    },
+  },
+  watch: {
+    quantidadePadrao(v) {
+      this.quantidade = v;
+    },
+    precoPadrao(v) {
+      this.preco = v;
+    },
+  },
+  mounted() {
+    this.quantidade = this.quantidadePadrao;
+    this.preco = this.precoPadrao;
   },
 };
 </script>

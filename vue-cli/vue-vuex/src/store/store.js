@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     produtos: [],
+    quantidadePadrao: 10,
+    precoPadrao: 10.99,
   },
 
   getters: {
@@ -19,6 +21,12 @@ export default new Vuex.Store({
   mutations: {
     adicionarProduto(state, payload) {
       state.produtos.push(payload);
+    },
+    setQuantidadePadrao(state, payload) {
+      state.quantidadePadrao = payload;
+    },
+    setPrecoPadrao(state, payload) {
+      state.precoPadrao = payload;
     },
   },
 });
